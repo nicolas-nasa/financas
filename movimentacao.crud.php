@@ -29,6 +29,13 @@ class Movimentacao {
         return $sql->fetchAll();
 
     }
+    public function saldo (){
+        $sql = "SELECT sum(valor) FROM movimentacao";
+        $sql = $this->pdo->query($sql);
+        echo "okay valor</br>";
+        return $sql->fetchAll();
+
+    }
     //update
     //delete
 

@@ -1,35 +1,11 @@
 <?php
 include 'movimentacao.crud.php';
 
-$conn = new Movimentacao();
-
-//$add = $conn->nova("salario","salario do mes",1000,0);
-
+$conn = new Movimentacao(); 
 $listar = $conn->listar();
-print_r($listar);
-
+$saldo = $conn->saldo()
 ?>
-<form method="POST">
-    <h1>Nova Movimentacao</h1>
-    titulo:</br>
-    <input type="text" name="titulo"></br></br>
-    descrição:</br>
-    <input type="text" name="descrição"></br></br>
-    valor:</br>
-    <input type="text" name="valor"></br></br>
-
-
-
-    <select name="tipo">
-        <option></option>
-        <option value="0">entrada</option>
-        <option value="1">saida</option>
-    </select>
-    <input type="button" value="">
-</form>
-
-<a href="novamove.php">Adicionar</a>
-
+<a href="adicionar.php">Adicionar</a>
 <table border="1" width="400">
     <tr>
         <th>tipo</th>
@@ -38,6 +14,38 @@ print_r($listar);
         <th>descrição</th>
         <th>data</th>
     </tr>
+    <?php
 
 
+        foreach($listar as $moves){
+            
+            if($moves['tipo'] == 0){
+                echo '<td>Entrada</td>';
+                echo '<td><font color="green">'.$moves['valor'].'</font></td>';
+                echo '<td>'.$moves['titulo'].'</td>';
+                echo '<td>'.$moves['descricao'].'</td>';
+                echo '<td>'.$moves['data'].'</td>';
+                echo '</tr>';
+                
+            }else {
+                echo '<td>Saida</td>';
+                echo '<td><font color="red">'.$moves['valor'].'</font></td>';
+                echo '<td>'.$moves['titulo'].'</td>';
+                echo '<td>'.$moves['descricao'].'</td>';
+                echo '<td>'.$moves['data'].'</td>';
+                echo '</tr>';
+            }
+        }
+            echo '<tr>';
+            echo '<td>';
+            echo 'Saldo';
+            echo '</td>';
+            echo '<td>';
+            foreach($saldo as $valor){
+                echo $valor[0];
+            }
+            echo '</td>';
+            echo '</tr>';
+
+    ?>
 </table>
