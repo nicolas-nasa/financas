@@ -15,18 +15,20 @@ $saldo = $conn->saldo()
         <th>data</th>
     </tr>
     <?php
-
-
+        $s = 0;
         foreach($listar as $moves){
             
             if($moves['tipo'] == 0){
-                echo '<td>Entrada</td>';
-                echo '<td><font color="green">'.$moves['valor'].'</font></td>';
-                echo '<td>'.$moves['titulo'].'</td>';
-                echo '<td>'.$moves['descricao'].'</td>';
-                echo '<td>'.$moves['data'].'</td>';
-                echo '</tr>';
-                
+                echo '
+                    <td>Entrada</td>
+                        <td><font color="green">'.$moves['valor'].'</font></td>
+                        <td>'.$moves['titulo'].'</td>
+                        <td>'.$moves['descricao'].'</td>
+                        <td>'.$moves['data'].'</td>
+                    </tr>
+                ';
+                $s = $moves['valor'] + $s;
+               
             }else {
                 echo '<td>Saida</td>';
                 echo '<td><font color="red">'.$moves['valor'].'</font></td>';
@@ -34,6 +36,9 @@ $saldo = $conn->saldo()
                 echo '<td>'.$moves['descricao'].'</td>';
                 echo '<td>'.$moves['data'].'</td>';
                 echo '</tr>';
+                $s =$s + $moves['valor'];
+                
+                
             }
         }
             echo '<tr>';
@@ -46,6 +51,7 @@ $saldo = $conn->saldo()
             }
             echo '</td>';
             echo '</tr>';
-
+            
     ?>
 </table>
+<?=  "total: ".$s;?>
